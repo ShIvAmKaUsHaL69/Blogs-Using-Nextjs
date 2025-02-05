@@ -1,6 +1,8 @@
 
 import BlogCard from "@/components/BlogCard";
 import SearchForm from "../../components/SearchForm";
+import { client } from "@/sanity/lib/client";
+import { BLOGS_QUERY } from "@/sanity/lib/queries";
 
 export default async function Home({ searchParams }: {
   searchParams: Promise<{ query?: string}>
@@ -8,16 +10,12 @@ export default async function Home({ searchParams }: {
 
   const query = (await searchParams).query;
 
-  const post = [{ _createdAt: new Date(),
-                  views: 55,
-                  author: { _id: 1, name: 'shivam' },
-                  _id: 1,
-                  description: 'this is a description.',
-                  image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Minecraft-creeper-face.jpg/800px-Minecraft-creeper-face.jpg',
-                  category: 'Robots',
-                  title: 'We Robots',
-               },
-              ];
+  const params = {search : query || null};
+
+  const post = await client.fetch(BLOGS_QUERY, params);
+
+  console.log(JSON.stringify(post, null, 2))
+
   return (
   <>
     <section className="pink_container">
@@ -31,7 +29,7 @@ export default async function Home({ searchParams }: {
       </p>
       <ul className="mt-7 card_grid">
         {post?.length > 0 ?(
-          post.map((BlogCardType,i) => (<BlogCard key={BlogCardType._id} post={BlogCardType}/>))
+          post.map((BlogCardType,i) => (<BlogCard key={post?._id} post={BlogCardType}/>))
         ) : (<p className="no-results">No Blogs found</p>)}
       </ul>
 
