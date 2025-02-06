@@ -3,6 +3,7 @@ import BlogCard from "@/components/BlogCard";
 import SearchForm from "../../components/SearchForm";
 import { client } from "@/sanity/lib/client";
 import { BLOGS_QUERY } from "@/sanity/lib/queries";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 
 export default async function Home({ searchParams }: {
   searchParams: Promise<{ query?: string}>
@@ -12,7 +13,8 @@ export default async function Home({ searchParams }: {
 
   const params = {search : query || null};
 
-  const post = await client.fetch(BLOGS_QUERY, params);
+  // const post = await client.fetch(BLOGS_QUERY, params);
+  const {data:post} = await sanityFetch({query: BLOGS_QUERY, params})
 
   console.log(JSON.stringify(post, null, 2))
 
@@ -29,12 +31,13 @@ export default async function Home({ searchParams }: {
       </p>
       <ul className="mt-7 card_grid">
         {post?.length > 0 ?(
-          post.map((BlogCardType,i) => (<BlogCard key={post?._id} post={BlogCardType}/>))
+          post.map((BlogCardType,i) => (<BlogCard key={BlogCardType?._id} post={BlogCardType}/>))
         ) : (<p className="no-results">No Blogs found</p>)}
       </ul>
 
     </section>
     
+    <SanityLive />
   </>
   );
 }
