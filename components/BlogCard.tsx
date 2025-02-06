@@ -28,7 +28,7 @@ export default function BlogCard({ post }: { post: BlogCardType }) {
             </Link>
         </div>
         <Link href={`/blogs/${post._id}`}>
-            <p className="blog-card_desc">{post.description}</p>
+            <p className="blog-card_desc">{post.short_description}</p>
             <img src={post.image} alt="placeholder" className="blog-card_img"/>
         </Link>
         <div className="flex-between gap-3 mt-5">

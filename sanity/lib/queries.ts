@@ -4,6 +4,14 @@ export const BLOGS_QUERY = defineQuery(`*[_type == 'blogs' && defined(slug.curre
   _id, title, slug, _createdAt,
     author -> {
       _id, name, image, bio
-    }, views, description, category,
-    image
+    }, views, short_description, category,
+    image, 
+}`);
+
+export const SINGLE_BLOG_QUERY = defineQuery(`*[_type == 'blogs' && _id == $id][0]{
+  _id, title, slug, _createdAt,
+    author -> {
+      _id, name, image, bio
+    }, views, short_description , category,
+    image, description,
 }`);
