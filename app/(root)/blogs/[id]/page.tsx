@@ -9,6 +9,8 @@ import markdownit from 'markdown-it'
 import { Skeleton } from '@/components/ui/skeleton';
 import View from '@/components/View';
 
+// using ISR to get data from cache if cache no need then false client
+
 export const experimental_ppr = true;
 
 export default async function page({params} : {params: Promise<{id: string}>}) {
