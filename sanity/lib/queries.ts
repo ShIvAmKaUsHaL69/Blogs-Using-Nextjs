@@ -19,3 +19,13 @@ export const SINGLE_BLOG_QUERY = defineQuery(`*[_type == 'blogs' && _id == $id][
 export const BLOGS_VIEW_QUERY = defineQuery(`*[_type == 'blogs' && _id == $id][0]{
   _id, views,
   }`);
+
+export const AUTHOR_BY_ID_QUERY = defineQuery(`*[_type == 'author' && id == $id][0]{
+  _id,
+  id,
+  name,
+  username,
+  email,
+  image,
+  bio
+  }`);

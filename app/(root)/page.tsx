@@ -4,6 +4,7 @@ import SearchForm from "../../components/SearchForm";
 import { client } from "@/sanity/lib/client";
 import { BLOGS_QUERY } from "@/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { auth } from "@/auth";
 
 export default async function Home({ searchParams }: {
   searchParams: Promise<{ query?: string}>
@@ -13,10 +14,11 @@ export default async function Home({ searchParams }: {
 
   const params = {search : query || null};
 
+  const session = await auth();
+
   // const post = await client.fetch(BLOGS_QUERY, params);
   const {data:post} = await sanityFetch({query: BLOGS_QUERY, params})
 
-  console.log(JSON.stringify(post, null, 2))
 
   return (
   <>
