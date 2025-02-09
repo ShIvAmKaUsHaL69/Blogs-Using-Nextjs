@@ -1,16 +1,43 @@
 'use client'
 
-import { useState } from "react"
+import { useActionState, useState } from "react"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea";
 import MDEditor from '@uiw/react-md-editor'
 import { Button } from "./ui/button";
 import { Send } from "lucide-react";
+import { formschema } from "@/lib/validation";
 
 export default function Blogform() {
     const [errors,Seterrors]=useState<Record<string,string>>({});
     const [content, setcontent] = useState("");
-    const ispending = false
+
+    const handleformsubmit = async (prevState: any, formdata: FormData) => {
+        try{
+          const formvalues = {
+            title: formdata.get('title') as string,
+            short_description: formdata.get('short_description') as string,
+            category: formdata.get('category') as string,
+            link: formdata.get('link') as string,
+            content: formdata.get('content') as string
+          }
+
+          await formschema.parseAsync(formvalues);
+          console.log(formvalues)
+
+          // const result = await createIdea(prevState, formdata, content)
+        } catch (error) {
+
+        } finally {
+
+        }
+
+    }
+
+    const [state, formaction, ispending] = useActionState(handleformsubmit, { error: '', status: 'INITIAL'});
+
+    
+
   return (
     <form action={() => {}} className="blog-form">
       <div>
@@ -48,7 +75,7 @@ export default function Blogform() {
         <MDEditor
         value={content}
         onChange={(value) => setcontent(value as string)}
-        id='blogcontent'
+        id='content'
         preview="edit"
         height={300}
         style={{borderRadius:20, overflow: "hidden"}}
