@@ -6,9 +6,11 @@ export const formschema = z.object({
     category : z.string().min(3).max(20),
     link : z.string().url().refine(async (url) => {
         try{
-            const res = await fetch(url, {method: 'HEAD'});
-            const contenttype = res.headers.get('content-type');
-            return contenttype?.startsWith('image/');
+            const res = await fetch(url,  {method: "HEAD"});
+            console.log(res)
+            const contenttype = res.headers.get("content-type");
+            console.log(contenttype)
+            return contenttype?.startsWith("image/");
         } catch{
                 return false
         }

@@ -7,39 +7,68 @@ import MDEditor from '@uiw/react-md-editor'
 import { Button } from "./ui/button";
 import { Send } from "lucide-react";
 import { formschema } from "@/lib/validation";
+import z from 'zod';
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function Blogform() {
     const [errors,Seterrors]=useState<Record<string,string>>({});
     const [content, setcontent] = useState("");
+    const {toast} = useToast();
+    const router = useRouter();
 
-    const handleformsubmit = async (prevState: any, formdata: FormData) => {
+    const handleFormSubmit = async (prevState: any, formdata: FormData) => {
         try{
           const formvalues = {
             title: formdata.get('title') as string,
             short_description: formdata.get('short_description') as string,
             category: formdata.get('category') as string,
             link: formdata.get('link') as string,
-            content: formdata.get('content') as string
+            content,
           }
 
           await formschema.parseAsync(formvalues);
           console.log(formvalues)
 
           // const result = await createIdea(prevState, formdata, content)
+
+          // if(result.status == 'SUCCESS') {
+          //   toast({
+          //     title: 'Success',
+          //     description: 'Your Blog has been published',
+          //   })
+
+            // router.push(`/blogs/${result.id}`)
+          // }
+          // return result
         } catch (error) {
+          if(error instanceof z.ZodError) {
+            const fieldErrors = error.flatten().fieldErrors;
+            Seterrors(fieldErrors as unknown as Record<string, string>);
+            toast({
+              title: 'Error',
+              description: 'Please check your inputs and try again',
+              variant: 'destructive',
+            })
+            return { ...prevState, error: 'Validation Failed' , status: 'ERROR'}
+          }
+          toast({
+            title: 'Error',
+            description: 'Unexpected error',
+            variant: 'destructive',
+          })
+          return { ...prevState, error: 'Unexpected error', status: 'ERROR'}
 
-        } finally {
-
-        }
+        } 
 
     }
 
-    const [state, formaction, ispending] = useActionState(handleformsubmit, { error: '', status: 'INITIAL'});
+    const [state, formAction, ispending] = useActionState(handleFormSubmit, { error: '', status: 'INITIAL'});
 
     
 
   return (
-    <form action={() => {}} className="blog-form">
+    <form action={formAction} className="blog-form">
       <div>
         <label htmlFor="title" className="blog-form_label">
             Title
@@ -52,7 +81,7 @@ export default function Blogform() {
             Short Description
         </label>
         <Textarea id='short_description' name="short_description" className="blog-form_textarea" required placeholder="Short Description"/>
-        {errors.shortdescription && <p className="blog-form_error">{errors.shortdescription}</p>}
+        {errors.short_description && <p className="blog-form_error">{errors.short_description}</p>}
       </div>
       <div>
         <label htmlFor="category" className="blog-form_label">
