@@ -24,7 +24,7 @@ export default function BlogCard({ post }: { post: BlogCardType }) {
                 </Link>
             </div>
             <Link href={`/user/${post.author._id}`} >
-                <Image src='https://placehold.co/48x48' alt='placeholder' width={48} height={48} className='rounded-full'/>
+                <Image src={post.author?.image} alt='placeholder' width={48} height={48} className='rounded-full'/>
             </Link>
         </div>
         <Link href={`/blogs/${post._id}`}>

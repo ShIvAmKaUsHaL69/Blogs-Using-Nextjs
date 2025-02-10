@@ -10,6 +10,7 @@ import { formschema } from "@/lib/validation";
 import z from 'zod';
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { createblog } from "@/lib/actions";
 
 export default function Blogform() {
     const [errors,Seterrors]=useState<Record<string,string>>({});
@@ -30,17 +31,17 @@ export default function Blogform() {
           await formschema.parseAsync(formvalues);
           console.log(formvalues)
 
-          // const result = await createIdea(prevState, formdata, content)
+          const result = await createblog(prevState, formdata, content)
 
-          // if(result.status == 'SUCCESS') {
-          //   toast({
-          //     title: 'Success',
-          //     description: 'Your Blog has been published',
-          //   })
+          if(result.status == 'SUCCESS') {
+            toast({
+              title: 'Success',
+              description: 'Your Blog has been published',
+            })
 
-            // router.push(`/blogs/${result.id}`)
-          // }
-          // return result
+            router.push(`/blogs/${result._id}`)
+          }
+          return result
         } catch (error) {
           if(error instanceof z.ZodError) {
             const fieldErrors = error.flatten().fieldErrors;

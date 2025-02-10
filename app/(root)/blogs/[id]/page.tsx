@@ -31,7 +31,7 @@ export default async function page({params} : {params: Promise<{id: string}>}) {
     </section>
     <section className='section_container'>
         <img src={postdetail.image} alt='thumbnail' className='w-full h-auto rounded-xl'/>
-        <div className='space-y-5 mt-10 max-w-4xl mx-auto'>
+        <div className='space-y-5 mt-10 max-w-7xl mx-auto'>
             <div className='flex-between gap-5'>
                 <Link href={`/user/${postdetail.author?._id}`} className='flex gap-2 items-center mb-3'>
                 <Image src={postdetail.author.image} alt='avatar' width={64} height={64} className='rounded-full drop-shadow-lg'/>
@@ -43,9 +43,8 @@ export default async function page({params} : {params: Promise<{id: string}>}) {
                 <p className='category-tag'>{postdetail.category}</p>
             </div>
 
-            <h3 className='text-30-bold'>Blog Content</h3>
             {parsedcontent && (
-                <article className=' max-w-4xl font-work-sans break-all' dangerouslySetInnerHTML={{__html: parsedcontent}}/>
+                <article className=' max-w-5xl font-work-sans break-all' dangerouslySetInnerHTML={{__html: parsedcontent}}/>
             )}
 
         </div>

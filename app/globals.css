@@ -219,3 +219,60 @@
 .w-md-editor-toolbar {
     padding: 10px !important;
 }
+
+article h1 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+article h2 {
+    font-size: clamp(1.75rem, 4.5vw, 2rem);
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 0.8rem;
+}
+
+article h3 {
+    font-size: clamp(1.5rem, 4vw, 1.75rem);
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 0.7rem;
+}
+
+article h4 {
+    font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 0.6rem;
+}
+
+article pre {
+    background-color: #f8f8f8;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+article code {
+    background-color: #f0f0f0;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    article h1 { font-size: 2rem; }
+    article h2 { font-size: 1.75rem; }
+    article h3 { font-size: 1.5rem; }
+    article h4 { font-size: 1.25rem; }
+    article pre, code { font-size: 0.9rem; }
+}

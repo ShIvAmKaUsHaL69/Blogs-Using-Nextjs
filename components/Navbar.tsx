@@ -1,4 +1,5 @@
 import { auth, signOut, signIn } from '@/auth'
+import Image from 'next/image';
 import Link from 'next/link'
 
 
@@ -25,7 +26,7 @@ export default async function Navbar() {
                                 <button type='submit'>signout</button>
                             </form>
                             <Link href={`/user/${session?.id}`}>
-                                <span>{session?.user?.name}</span>
+                            <Image src={session?.user?.image} alt='placeholder' width={48} height={48} className='rounded-full'/>
                             </Link>
                         </>
                     ) : (

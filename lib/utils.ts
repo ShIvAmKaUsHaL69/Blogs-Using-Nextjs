@@ -12,3 +12,7 @@ return new Date(date).toLocaleDateString('en-US', {
   year: 'numeric'
 })
 }
+
+export function parseserveractionresponce<T>(response: T) {
+  return JSON.parse(JSON.stringify(response));
+}
