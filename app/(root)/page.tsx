@@ -1,9 +1,10 @@
 
-import BlogCard from "@/components/BlogCard";
+import BlogCard, { Blogcardskeleton } from "@/components/BlogCard";
 import SearchForm from "../../components/SearchForm";
 import { BLOGS_QUERY } from "@/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { auth } from "@/auth";
+import { Suspense } from "react";
 
 export default async function Home({ searchParams }: {
   searchParams: Promise<{ query?: string}>
@@ -31,9 +32,11 @@ export default async function Home({ searchParams }: {
         {query ? `Search results for "${query}"` : 'All Blogs'} 
       </p>
       <ul className="mt-7 card_grid">
+        <Suspense fallback={<Blogcardskeleton />}>
         {post?.length > 0 ?(
           post.map((BlogCardType,i) => (<BlogCard key={BlogCardType?._id} post={BlogCardType}/>))
         ) : (<p className="no-results">No Blogs found</p>)}
+        </Suspense>
       </ul>
 
     </section>

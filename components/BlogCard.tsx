@@ -1,8 +1,9 @@
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
 export default function BlogCard({ post }: { post: BlogCardType }) {
   return (
@@ -42,3 +43,13 @@ export default function BlogCard({ post }: { post: BlogCardType }) {
     </li>
   )
 }
+
+export const Blogcardskeleton = () => (
+    <>
+    {[0,1,2,3,4].map((_ , i: number) => (
+        <li key={cn('skeleton', i)}>
+            <Skeleton className="blog-card_skeleton"/>
+        </li>
+    ))}
+    </>
+)
