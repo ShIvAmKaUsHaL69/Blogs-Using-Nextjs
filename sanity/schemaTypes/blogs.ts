@@ -43,6 +43,14 @@ export const blogs = defineType({
             type: 'url',
             validation: (Rule) => Rule.required(),
         }),
+        defineField({
+            name: 'comments',
+            type: 'array',
+            of: [{
+                type: 'string',
+            }
+            ]
+        })
         
     ],
 });

@@ -8,6 +8,7 @@ import  { Suspense } from 'react'
 import markdownit from 'markdown-it'
 import { Skeleton } from '@/components/ui/skeleton';
 import View from '@/components/View';
+import Blogcomments from '@/components/Blogcomments';
 
 // using ISR to get data from cache if cache no need then false client
 
@@ -49,6 +50,7 @@ export default async function page({params} : {params: Promise<{id: string}>}) {
 
         </div>
         <hr className='divider'/>
+        <Blogcomments id={id}/>
         <Suspense fallback={<Skeleton className='view_skeleton'/>}>
       <View id={id}/>
       </Suspense>

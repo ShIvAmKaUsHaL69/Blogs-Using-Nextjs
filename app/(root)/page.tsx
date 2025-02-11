@@ -34,7 +34,7 @@ export default async function Home({ searchParams }: {
       <ul className="mt-7 card_grid">
         <Suspense fallback={<Blogcardskeleton />}>
         {post?.length > 0 ?(
-          post.map((BlogCardType,i) => (<BlogCard key={BlogCardType?._id} post={BlogCardType}/>))
+          post.map((BlogCardType,i) => (<BlogCard key={BlogCardType?._id} post={BlogCardType} />))
         ) : (<p className="no-results">No Blogs found</p>)}
         </Suspense>
       </ul>
