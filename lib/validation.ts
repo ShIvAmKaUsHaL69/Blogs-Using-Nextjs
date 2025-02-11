@@ -18,3 +18,7 @@ export const formschema = z.object({
     content : z.string().min(10),
 
 })
+
+export const commentschema = z.object({
+    comment: z.string().min(3).max(100),
+})
